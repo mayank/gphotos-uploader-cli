@@ -1,0 +1,40 @@
+{
+  "name": "gphotos-uploader-cli",
+  "version": "0.0.0-beta1",
+  "description": "Upload Google Photos via Command Line",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mayank/gphotos-uploader-cli.git"
+  },
+  "keywords": [
+    "google",
+    "photos",
+    "google",
+    "photo",
+    "upload",
+    "command",
+    "line",
+    "google",
+    "photos"
+  ],
+  "author": "mayank <nitb.scholar@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mayank/gphotos-uploader-cli/issues"
+  },
+  "homepage": "https://github.com/mayank/gphotos-uploader-cli#readme",
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "cli-interact": "^0.1.9",
+    "cli-progress": "^2.0.0",
+    "cli-spinner": "^0.2.8",
+    "commander": "^2.15.1",
+    "figures": "^2.0.0",
+    "googleapis": "^31.0.2",
+    "request": "^2.87.0"
+  }
+}
