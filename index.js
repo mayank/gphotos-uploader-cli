@@ -1,10 +1,10 @@
-var 
+var
 	CLI 	= require('cli-interact'),
 	chalk 	= require('chalk'),
 	f 		= require('figures'),
 	spinner = require('cli-spinner').Spinner,
 	api 	= require('googleapis').google,
-	q 		= require('cli-interact'), 
+	q 		= require('cli-interact'),
 	req     = require('request'),
 	prog 	= require('cli-progress'),
 	path    = require('path'),
@@ -31,7 +31,7 @@ fancy('cyan','Reading Google Project Credentials')
 
 
 var readCredentials = function(){
-	
+
 	return new Promise(function(resolve, reject) {
 		FS.readFile('credentials.json', function(err, data){
 			if(err){
@@ -56,8 +56,8 @@ var showGoogleUrl = function(conf) {
 	fancy('yellow', 'Asking For Google Token');
 
 	var client = new api.auth.OAuth2(
-		conf.installed.client_id, 
-		conf.installed.client_secret, 
+		conf.installed.client_id,
+		conf.installed.client_secret,
 		conf.installed.redirect_uris[0],
 	);
 
@@ -81,12 +81,12 @@ var askForToken = function(client){
 		client.getToken(code)
 			.then(function(token){
 				fancy('green', 'Valid Token', f.tick);
-				acToken = token.tokens.access_token; 
-				resolve(); 
+				acToken = token.tokens.access_token;
+				resolve();
 			})
-			.catch(function(err){ 
+			.catch(function(err){
 				fancy('red', 'Token not Valid', f.cross)
-				reject(); 
+				reject();
 			});
 	});
 }
@@ -110,7 +110,6 @@ var readDirectoryRecursive = function(dir, child) {
 				var promises = [];
 
 				files.forEach(function(file){
-					//console.log(file);
 					if(file.indexOf('.') !== 0){
 						if(FS.lstatSync(dir + '/' + file).isDirectory()){
 							promises.push(readDirectoryRecursive(dir + '/' + file, true));
@@ -125,12 +124,12 @@ var readDirectoryRecursive = function(dir, child) {
 					return resolve();
 				});
 			}
-		});	
+		});
 	});
 }
 
 var uploadBytes = function(file){
-	return new Promise(function(resolve, reject){	
+	return new Promise(function(resolve, reject){
 		req({
 			url: 'https://photoslibrary.googleapis.com/v1/uploads',
 			method:'POST',
@@ -210,25 +209,24 @@ var uploadFilesToGoogleDrive = function(){
 			Promise.all(promises).then(function(){
 				return resolve();
 			});
-			
+
 		} else {
 			fancy('red', 'No Image Files found in Folder', f.cross);
 			return reject();
-		}				
-	});			
+		}
+	});
 }
 
 
 readCredentials()
 	.then(function(d){ return showGoogleUrl(d) })
 	.then(function(c){ return askForToken(c) })
-	.then(function(){ 
-		console.log(acToken);
+	.then(function(){
 		return askForFolder();
 	 })
-	.then(function(path){ 
-		files = []; 
-		count = 0; 
+	.then(function(path){
+		files = [];
+		count = 0;
 		return readDirectoryRecursive(path, false);
 	})
 	.then(function(){
@@ -238,5 +236,3 @@ readCredentials()
 		bar.stop();
 	})
 	.catch(function(e){ return showFailures(e) })
-
-
