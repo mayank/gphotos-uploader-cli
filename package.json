@@ -34,7 +34,7 @@
     "cli-spinner": "^0.2.8",
     "commander": "^2.15.1",
     "figures": "^2.0.0",
-    "googleapis": "^31.0.2",
+    "googleapis": "^39.1.0",
     "request": "^2.87.0"
   }
 }
